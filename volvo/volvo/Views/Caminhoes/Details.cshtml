@@ -1,0 +1,36 @@
+﻿@model volvo.Models.Caminhao
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Caminhao</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.modelo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.modelo)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AnoFabricacao)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AnoFabricacao)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AnoModelo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AnoModelo)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
