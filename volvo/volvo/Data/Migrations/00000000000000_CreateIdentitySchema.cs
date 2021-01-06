@@ -27,7 +27,11 @@ namespace volvo.Data.Migrations
                 values: new object[,]
                 {
                     { "FH" },
-                    { "FM" }
+                    { "FM" },
+                    { "DM" },
+                    { "GM" },
+                    { "FJ" },
+                    { "FP" }
             });
 
             migrationBuilder.CreateTable(
