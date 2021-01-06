@@ -10,26 +10,36 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form id="formulario" asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="ModeloId" class="control-label"></label>
-                <input asp-for="ModeloId" class="form-control" />
+                <select asp-for="ModeloId" class="form-control">
+                    <option value="" selected="selected" disabled hidden>Selecione o Modelo</option>
+                    <option value="1">FH</option>
+                    <option value="2">FM</option>
+                </select>
                 <span asp-validation-for="ModeloId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="AnoFabricacao" class="control-label"></label>
-                <input asp-for="AnoFabricacao" class="form-control" />
+                <select id="AnoFabricacao" asp-for="AnoFabricacao" class="form-control"
+                        asp-items="@(new SelectList(ViewBag.anoFabricacao))">
+                    <option value="" selected="selected" disabled hidden>Selecione o ano de Fabricação</option>
+                </select>
                 <span asp-validation-for="AnoFabricacao" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="AnoModelo" class="control-label"></label>
-                <input asp-for="AnoModelo" class="form-control" />
+                <select id="AnoModelo" asp-for="AnoModelo" class="form-control"
+                        asp-items="@(new SelectList(ViewBag.anoModelo))">
+                    <option value="" selected="selected" disabled hidden>Selecione o ano do Modelo</option>
+                </select>
                 <span asp-validation-for="AnoModelo" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="button" onclick="return envia()" value="Save" class="btn btn-default" />
             </div>
         </form>
     </div>
@@ -42,3 +52,13 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+<script type="text/javascript">
+    function envia() {
+        if ($("#AnoFabricacao").val() > $("#AnoModelo").val()) {
+            alert("O data de fabricação não pode ser maior que a data do Modelo");
+        } else {
+            document.getElementById("formulario").submit();
+        }
+    }
+</script>

@@ -14,7 +14,14 @@
             @Html.DisplayNameFor(model => model.ModeloId)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.ModeloId)
+            @if (Model.ModeloId == 1)
+            {
+                <text>FH</text>
+            }
+            else
+            {
+                <text>FM</text>
+            }
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.AnoFabricacao)

@@ -24,7 +24,11 @@ namespace volvo.Controllers
         // GET: Caminhoes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Caminhao.ToListAsync());
+            return View(await _context.Caminhao
+                .Where(x=> (x.ModeloId == 1 || x.ModeloId == 2) &&
+                            x.AnoFabricacao == DateTime.Now.Year && 
+                           (x.AnoModelo == DateTime.Now.Year || x.AnoModelo == DateTime.Now.Year + 1))
+                .ToListAsync());
         }
 
         // GET: Caminhoes/Details/5
@@ -48,12 +52,10 @@ namespace volvo.Controllers
         // GET: Caminhoes/Create
         public IActionResult Create()
         {
-            ViewBag.anoAtual = DateTime.Now.Year;
-            ViewBag.anoModelo = new[]
-            {
-                new SelectListItem(){ Value = DateTime.Now.Year.ToString(), Text = DateTime.Now.Year.ToString()},
-                new SelectListItem(){ Value =  (DateTime.Now.Year + 1).ToString(), Text =  (DateTime.Now.Year + 1).ToString()}
-            };
+
+            ViewBag.anoModelo = new List<int>(Enumerable.Range(1990, ((DateTime.Now.Year + 1) - 1990) + 1));
+            ViewBag.anoFabricacao = new List<int>(Enumerable.Range(1990, (DateTime.Now.Year - 1990) + 1));
+            
             return View();
         }
 
@@ -66,7 +68,6 @@ namespace volvo.Controllers
         {
             if (ModelState.IsValid)
             {
-                caminhao.AnoFabricacao = DateTime.Now.Year;
                 _context.Add(caminhao);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -77,6 +78,9 @@ namespace volvo.Controllers
         // GET: Caminhoes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            ViewBag.anoModelo = new List<int>(Enumerable.Range(1990, ((DateTime.Now.Year + 1) - 1990) + 1));
+            ViewBag.anoFabricacao = new List<int>(Enumerable.Range(1990, (DateTime.Now.Year - 1990) + 1));
+
             if (id == null)
             {
                 return NotFound();

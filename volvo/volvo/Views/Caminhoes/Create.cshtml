@@ -9,7 +9,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form id="formulario" asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="ModeloId" class="control-label"></label>
@@ -22,19 +22,22 @@
             </div>
             <div class="form-group">
                 <label asp-for="AnoFabricacao" class="control-label"></label>
-                <input asp-for="AnoFabricacao" class="form-control" value="@ViewBag.anoAtual" disabled />
+                <select id="AnoFabricacao" asp-for="AnoFabricacao" class="form-control"
+                        asp-items="@(new SelectList(ViewBag.anoFabricacao))">
+                    <option value="" selected="selected" disabled hidden>Selecione o ano de Fabricação</option>
+                </select>
                 <span asp-validation-for="AnoFabricacao" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="AnoModelo" class="control-label"></label>
-                <select asp-for="AnoModelo" class="form-control"
-                        asp-items="@(new SelectList(ViewBag.anoModelo,"Value","Text"))">
+                <select id="AnoModelo" asp-for="AnoModelo" class="form-control"
+                        asp-items="@(new SelectList(ViewBag.anoModelo))">
                     <option value="" selected="selected" disabled hidden>Selecione o ano do Modelo</option>
                 </select>
                 <span asp-validation-for="AnoModelo" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input  type="button" onclick="return envia()" value="Create" class="btn btn-default" />
             </div>
         </form>
     </div>
@@ -47,3 +50,13 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+<script type="text/javascript">
+    function envia() {
+        if ($("#AnoFabricacao").val() > $("#AnoModelo").val()) {
+            alert("O data de fabricação não pode ser maior que a data do Modelo");
+        } else {
+            document.getElementById("formulario").submit();
+        }
+    }
+</script>

@@ -35,9 +35,9 @@ namespace volvo.Data.Migrations
               columns: table => new
               {
                   Id = table.Column<int>(nullable: false).Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                  ModeloId = table.Column<int>(maxLength: 256, nullable: true),
-                  AnoFabricacao = table.Column<int>(maxLength: 256, nullable: true),
-                  AnoModelo = table.Column<int>(nullable: true)
+                  ModeloId = table.Column<int>(maxLength: 2, nullable: true),
+                  AnoFabricacao = table.Column<int>(maxLength: 4, nullable: true),
+                  AnoModelo = table.Column<int>(maxLength:4, nullable: true)
               },
               constraints: table =>
               {
