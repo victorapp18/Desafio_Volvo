@@ -3,7 +3,6 @@
 @{
     ViewData["Title"] = "Create";
 }
-
 <h2>Create</h2>
 
 <h4>Caminhao</h4>
@@ -13,18 +12,25 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="modelo" class="control-label"></label>
-                <input asp-for="modelo" class="form-control" />
-                <span asp-validation-for="modelo" class="text-danger"></span>
+                <label asp-for="ModeloId" class="control-label"></label>
+                <select asp-for="ModeloId" class="form-control">
+                    <option value="" selected="selected" disabled hidden>Selecione o Modelo</option>
+                    <option value="1">FH</option>
+                    <option value="2">FM</option>
+                </select>
+                <span asp-validation-for="ModeloId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="AnoFabricacao" class="control-label"></label>
-                <input asp-for="AnoFabricacao" class="form-control" />
+                <input asp-for="AnoFabricacao" class="form-control" value="@ViewBag.anoAtual" disabled />
                 <span asp-validation-for="AnoFabricacao" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="AnoModelo" class="control-label"></label>
-                <input asp-for="AnoModelo" class="form-control" />
+                <select asp-for="AnoModelo" class="form-control"
+                        asp-items="@(new SelectList(ViewBag.anoModelo,"Value","Text"))">
+                    <option value="" selected="selected" disabled hidden>Selecione o ano do Modelo</option>
+                </select>
                 <span asp-validation-for="AnoModelo" class="text-danger"></span>
             </div>
             <div class="form-group">

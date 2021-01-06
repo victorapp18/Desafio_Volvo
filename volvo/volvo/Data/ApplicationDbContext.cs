@@ -14,5 +14,6 @@ namespace volvo.Data
         {
         }
         public DbSet<volvo.Models.Caminhao> Caminhao { get; set; }
+        public DbSet<volvo.Models.Modelo> Modelo { get; set; }
     }
 }

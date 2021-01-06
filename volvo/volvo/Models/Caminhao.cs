@@ -8,19 +8,20 @@ using System.Threading.Tasks;
 namespace volvo.Models
 {
     [Table("Caminhao")]
-    public class Caminhao
+    public class Caminhao 
     {
         [Display(Name = "Codigo")]
-        public int id { get; set; }
+        public int Id { get; set; }
 
         [Display(Name = "Modelo")]
-        public string modelo { get; set; }
+        public int ModeloId { get; set; }
 
         [Display(Name = "Ano de Fabricação")]
-        public DateTime AnoFabricacao { get; set; }
+        public int AnoFabricacao { get; set; }
 
         [Display(Name = "Ando do Modelo")]
-        public DateTime AnoModelo { get; set; }
+        public int AnoModelo { get; set; }
+        
     }
     
 }

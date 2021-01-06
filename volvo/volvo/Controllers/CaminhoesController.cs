@@ -36,7 +36,7 @@ namespace volvo.Controllers
             }
 
             var caminhao = await _context.Caminhao
-                .FirstOrDefaultAsync(m => m.id == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (caminhao == null)
             {
                 return NotFound();
@@ -48,6 +48,12 @@ namespace volvo.Controllers
         // GET: Caminhoes/Create
         public IActionResult Create()
         {
+            ViewBag.anoAtual = DateTime.Now.Year;
+            ViewBag.anoModelo = new[]
+            {
+                new SelectListItem(){ Value = DateTime.Now.Year.ToString(), Text = DateTime.Now.Year.ToString()},
+                new SelectListItem(){ Value =  (DateTime.Now.Year + 1).ToString(), Text =  (DateTime.Now.Year + 1).ToString()}
+            };
             return View();
         }
 
@@ -56,10 +62,11 @@ namespace volvo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,modelo,AnoFabricacao,AnoModelo")] Caminhao caminhao)
+        public async Task<IActionResult> Create([Bind("Id,ModeloId,AnoFabricacao,AnoModelo")] Caminhao caminhao)
         {
             if (ModelState.IsValid)
             {
+                caminhao.AnoFabricacao = DateTime.Now.Year;
                 _context.Add(caminhao);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -88,9 +95,9 @@ namespace volvo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,modelo,AnoFabricacao,AnoModelo")] Caminhao caminhao)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ModeloId,AnoFabricacao,AnoModelo")] Caminhao caminhao)
         {
-            if (id != caminhao.id)
+            if (id != caminhao.Id)
             {
                 return NotFound();
             }
@@ -104,7 +111,7 @@ namespace volvo.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CaminhaoExists(caminhao.id))
+                    if (!CaminhaoExists(caminhao.Id))
                     {
                         return NotFound();
                     }
@@ -127,7 +134,7 @@ namespace volvo.Controllers
             }
 
             var caminhao = await _context.Caminhao
-                .FirstOrDefaultAsync(m => m.id == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (caminhao == null)
             {
                 return NotFound();
@@ -149,7 +156,7 @@ namespace volvo.Controllers
 
         private bool CaminhaoExists(int id)
         {
-            return _context.Caminhao.Any(e => e.id == id);
+            return _context.Caminhao.Any(e => e.Id == id);
         }
     }
 }

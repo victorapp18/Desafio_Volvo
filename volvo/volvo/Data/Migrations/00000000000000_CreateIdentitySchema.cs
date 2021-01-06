@@ -10,19 +10,45 @@ namespace volvo.Data.Migrations
         {
 
             migrationBuilder.CreateTable(
+              name: "Modelo",
+              columns: table => new
+              {
+                  Id = table.Column<int>(nullable: false).Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                  Descricao = table.Column<string>(maxLength: 256, nullable: true)
+              },
+              constraints: table =>
+              {
+                  table.PrimaryKey("PK_Modelo", x => x.Id);
+              });
+
+            migrationBuilder.InsertData(
+            table: "Modelo",
+            columns: new[] { "Descricao" },
+                values: new object[,]
+                {
+                    { "FH" },
+                    { "FM" }
+            });
+
+            migrationBuilder.CreateTable(
               name: "Caminhao",
               columns: table => new
               {
                   Id = table.Column<int>(nullable: false).Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                  Modelo = table.Column<string>(maxLength: 256, nullable: true),
-                  AnoFabricacao = table.Column<DateTime>(maxLength: 256, nullable: true),
-                  AnoModelo = table.Column<DateTime>(nullable: true)
+                  ModeloId = table.Column<int>(maxLength: 256, nullable: true),
+                  AnoFabricacao = table.Column<int>(maxLength: 256, nullable: true),
+                  AnoModelo = table.Column<int>(nullable: true)
               },
               constraints: table =>
               {
                   table.PrimaryKey("PK_Caminhao", x => x.Id);
+                  table.ForeignKey(
+                                    name: "FK_Caminhao_Modelo_ID",
+                                    column: x => x.ModeloId,
+                                    principalTable: "Modelo",
+                                    principalColumn: "Id",
+                                    onDelete: ReferentialAction.Cascade);
               });
-
 
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
