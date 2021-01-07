@@ -28,10 +28,10 @@ namespace volvo.Data.Migrations
                 {
                     { "FH" },
                     { "FM" },
-                    { "DM" },
-                    { "GM" },
-                    { "FJ" },
-                    { "FP" }
+                    { "VM" },
+                    { "FMX" },
+                    { "NI" },
+                    { "NL" }
             });
 
             migrationBuilder.CreateTable(

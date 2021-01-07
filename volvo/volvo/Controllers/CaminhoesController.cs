@@ -20,7 +20,7 @@ namespace volvo.Controllers
         {
             _context = context;
         }
-
+        
         // GET: Caminhoes
         public async Task<IActionResult> Index()
         {
@@ -50,12 +50,13 @@ namespace volvo.Controllers
         }
 
         // GET: Caminhoes/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
 
             ViewBag.anoModelo = new List<int>(Enumerable.Range(1990, ((DateTime.Now.Year + 1) - 1990) + 1));
             ViewBag.anoFabricacao = new List<int>(Enumerable.Range(1990, (DateTime.Now.Year - 1990) + 1));
-            
+            ViewBag.modelo = await _context.Modelo.ToListAsync();
+
             return View();
         }
 
@@ -80,6 +81,7 @@ namespace volvo.Controllers
         {
             ViewBag.anoModelo = new List<int>(Enumerable.Range(1990, ((DateTime.Now.Year + 1) - 1990) + 1));
             ViewBag.anoFabricacao = new List<int>(Enumerable.Range(1990, (DateTime.Now.Year - 1990) + 1));
+            ViewBag.modelo = await _context.Modelo.ToListAsync();
 
             if (id == null)
             {
