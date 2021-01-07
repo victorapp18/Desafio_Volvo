@@ -10,14 +10,13 @@ namespace volvoTest
     {
         public static async Task<ApplicationDbContext> GetDatabaseMockContext()
         {
-
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                 .Options;
 
             var databaseContext = new ApplicationDbContext(options);
             databaseContext.Database.EnsureCreated();
-
+            
             if (await databaseContext.Caminhao.CountAsync() <= 0)
             {
                 for (int i = 1; i <= 50; i++)
@@ -25,8 +24,8 @@ namespace volvoTest
                     databaseContext.Caminhao.Add(new Caminhao()
                     {
                         ModeloId = 1,
-                        AnoFabricacao = 2020,
-                        AnoModelo = 2021
+                        AnoFabricacao = DateTime.Now.Year,
+                        AnoModelo = DateTime.Now.Year + 1
                     });
                     await databaseContext.SaveChangesAsync();
                 }
